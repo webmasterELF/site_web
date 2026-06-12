@@ -1,0 +1,188 @@
+---
+import Nav from './Nav.astro'
+import Button from '../ui/Button.astro'
+import MobileMenu from './MobileMenu.astro'
+import { siteConfig } from '../../config/site'
+import Image from 'astro/components/Image.astro'
+---
+
+<header class="header" id="main-header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo">
+      <Image src={siteConfig.logoUrl} alt={siteConfig.name} width={400} height={150} loading="eager"/>
+    </a>
+
+    <Nav />
+
+    <div class="header__actions">
+      <Button label="Demande de documentation" href="/documentation" variant="outline" class="btn-header"/>
+      <Button label="Demande de rappel" href="/rappel" variant="primary" class="btn-header"/>
+    </div>
+
+    <button class="header__burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<MobileMenu />
+
+<script>
+  const header = document.getElementById('main-header');
+  const html = document.documentElement;
+
+  function updateHeader() {
+    if (window.scrollY > 10) {
+      header?.classList.add('header--scrolled');
+      header?.classList.remove('header--transparent');
+    } else {
+      header?.classList.remove('header--scrolled');
+      // Transparent uniquement si la page le demande
+      if (html.dataset.transparentHeader) {
+        header?.classList.add('header--transparent');
+      }
+    }
+  }
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>
+
+
+<style>
+  .header {
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+
+    /* Sticky par défaut (pages sans hero) */
+    position: sticky;
+  }
+
+  /* Sur les pages avec transparentHeader, le header passe en fixed */
+  [data-transparent-header] .header {
+    position: fixed;
+    color: var(--text-on-secondary);
+  }
+
+  /* Au scroll : fond blanc + shadow dans tous les cas */
+  .header--scrolled {
+    background-color: var(--color-dominant);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    height: 72px;
+  }
+
+  .header__logo img {
+    height: 40px;
+    width: auto;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-left: auto;
+  }
+
+  .header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+    margin-left: auto;
+  }
+
+  .header__burger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-secondary);
+    transition: transform var(--transition-base);
+  }
+
+  /* État initial sur pages avec hero */
+.header--transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Texte blanc quand transparent */
+.header--transparent :global(.nav__link),
+.header--transparent :global(.nav__item){
+  color: white;
+}
+
+.header--transparent :global(.nav__item .nav__dropdown-link){
+  color: var(--text-on-dominant);
+}
+
+/* Logo en filtre blanc si SVG/PNG sombre */
+.header--transparent .header__logo img {
+  filter: brightness(0) invert(1);
+}
+
+/* Burger en blanc */
+.header--transparent .header__burger span {
+  background-color: white;
+}
+
+/* Boutons header — état scrolled (défaut) */
+:global(.btn-header.btn--primary) {
+  background-color: var(--color-accent);
+  color: var(--text-on-accent);
+  border-color: var(--color-accent);
+}
+
+:global(.btn-header.btn--outline) {
+  background-color: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Boutons header — état transparent */
+.header--transparent :global(.btn-header.btn--primary) {
+  background-color: white;
+  color: var(--color-accent);
+  border-color: white;
+}
+
+.header--transparent :global(.btn-header.btn--outline) {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+.header--transparent :global(.btn-header.btn--outline:hover) {
+  background-color: white;
+  color: var(--color-accent);
+}
+
+
+  @media (max-width: 1024px) {
+    .header__actions {
+      display: none;
+    }
+
+    .header__burger {
+      display: flex;
+    }
+  }
+
+
+</style>

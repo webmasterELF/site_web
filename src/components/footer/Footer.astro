@@ -1,0 +1,95 @@
+---
+import FooterNav from './FooterNav.astro'
+import FooterContact from './FooterContact.astro'
+import FooterSocial from './FooterSocial.astro'
+import FooterLegal from './FooterLegal.astro'
+import { siteConfig } from '../../config/site'
+import Image from 'astro/components/Image.astro'
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+
+    <div class="footer__col footer__col--logo">
+      <a href="/" aria-label="Accueil École la Fontaine">
+        <Image
+          src={siteConfig.logoUrl}
+          alt={siteConfig.name}
+          width="180"
+          height="60"
+          loading="lazy"
+          decoding="async"
+          class={"footer__logo"}
+        />
+      </a>
+    </div>
+
+    <div class="footer__col">
+      <FooterNav />
+    </div>
+
+    <div class="footer__col">
+      <FooterContact />
+    </div>
+
+    <div class="footer__col footer__col--social">
+      <FooterSocial />
+    </div>
+
+  </div>
+
+  <div class="footer__legal-wrapper">
+    <FooterLegal />
+  </div>
+</footer>
+
+
+<style>
+  .footer {
+  background-color: var(--color-secondary);
+  color: var(--text-on-secondary);
+  padding: var(--space-12) var(--space-4) var(--space-6);
+
+  /* Redéfinition des variables dans ce contexte */
+  --text-on-dominant: var(--text-on-secondary);
+  }
+
+  .footer__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .footer__col--social {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .footer__legal-wrapper {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .footer__col--social {
+      justify-content: flex-start;
+    }
+  }
+</style>

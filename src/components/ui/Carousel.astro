@@ -1,0 +1,224 @@
+---
+interface Props {
+  slidesPerView?: { mobile?: number; tablet?: number; desktop?: number }
+  gap?: number
+  id?: string
+}
+
+const {
+  slidesPerView = { mobile: 1, tablet: 2, desktop: 3 },
+  gap = 24,
+  id = 'carousel-' + Math.random().toString(36).slice(2, 7),
+} = Astro.props
+---
+
+<div
+  class="carousel"
+  id={id}
+  data-spv-mobile={slidesPerView.mobile ?? 1}
+  data-spv-tablet={slidesPerView.tablet ?? 2}
+  data-spv-desktop={slidesPerView.desktop ?? 3}
+  data-gap={gap}
+>
+  <div class="carousel__track-wrapper">
+    <div class="carousel__track">
+      <slot />
+    </div>
+  </div>
+
+  <div class="carousel__controls">
+    <button class="carousel__arrow carousel__arrow--prev" aria-label="Précédent">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <div class="carousel__pagination"></div>
+
+    <button class="carousel__arrow carousel__arrow--next" aria-label="Suivant">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .carousel__track-wrapper {
+    overflow: hidden;
+  }
+
+  .carousel__track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  .carousel__track > :global(*) {
+    flex-shrink: 0;
+  }
+
+  .carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .carousel__pagination {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .carousel__pagination :global(.carousel__dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-border, #e2e8f0);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--transition-fast, 200ms);
+  }
+
+  .carousel__pagination :global(.carousel__dot--active) {
+    width: 24px;
+    border-radius: 4px;
+    background-color: var(--color-accent);
+  }
+
+  .carousel__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border, #e2e8f0);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-fast, 200ms);
+    flex-shrink: 0;
+  }
+
+  .carousel__arrow:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .carousel__arrow:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  function initCarousel(carousel: HTMLElement) {
+    const track      = carousel.querySelector<HTMLElement>('.carousel__track')!
+    const wrapper    = carousel.querySelector<HTMLElement>('.carousel__track-wrapper')!
+    const pagination = carousel.querySelector<HTMLElement>('.carousel__pagination')!
+    const prevBtn    = carousel.querySelector<HTMLButtonElement>('.carousel__arrow--prev')!
+    const nextBtn    = carousel.querySelector<HTMLButtonElement>('.carousel__arrow--next')!
+
+    const gap        = Number(carousel.dataset.gap ?? 24)
+    const spvMobile  = Number(carousel.dataset.spvMobile ?? 1)
+    const spvTablet  = Number(carousel.dataset.spvTablet ?? 2)
+    const spvDesktop = Number(carousel.dataset.spvDesktop ?? 3)
+
+    const slides     = Array.from(track.children) as HTMLElement[]
+    let current      = 0   // index de slide actuelle
+    let slidesPerView: number
+    let pageCount: number
+    let maxIndex: number
+
+    // --- Helpers ---
+    function getSlidesPerView(): number {
+      if (window.innerWidth >= 1024) return spvDesktop
+      if (window.innerWidth >= 640)  return spvTablet
+      return spvMobile
+    }
+
+    function getSlideWidth(): number {
+      return (wrapper.clientWidth - gap * (slidesPerView - 1)) / slidesPerView
+    }
+
+    function currentPage(): number {
+      return Math.round(current / slidesPerView)
+    }
+
+    // --- Dots (un par page) ---
+    function buildDots() {
+      pagination.innerHTML = ''
+      for (let i = 0; i < pageCount; i++) {
+        const dot = document.createElement('button')
+        dot.className = 'carousel__dot' + (i === 0 ? ' carousel__dot--active' : '')
+        dot.setAttribute('aria-label', `Page ${i + 1}`)
+        dot.addEventListener('click', () => goTo(i * slidesPerView))
+        pagination.appendChild(dot)
+      }
+    }
+
+    function updateDots() {
+      const page = currentPage()
+      pagination.querySelectorAll<HTMLButtonElement>('.carousel__dot').forEach((dot, i) => {
+        dot.classList.toggle('carousel__dot--active', i === page)
+      })
+    }
+
+    function setSlideWidths() {
+      const width = getSlideWidth()
+      slides.forEach((slide, i) => {
+        slide.style.width       = `${width}px`
+        slide.style.marginRight = i < slides.length - 1 ? `${gap}px` : '0'
+      })
+    }
+
+    // --- Navigation ---
+    function goTo(index: number) {
+      current = Math.max(0, Math.min(index, maxIndex))
+
+      const offset = current * (getSlideWidth() + gap)
+      track.style.transform = `translateX(-${offset}px)`
+
+      updateDots()
+      prevBtn.disabled = current === 0
+      nextBtn.disabled = current === maxIndex
+    }
+
+    // --- Init ---
+    function init() {
+      slidesPerView = getSlidesPerView()
+      maxIndex      = Math.max(0, slides.length - slidesPerView)
+      pageCount     = Math.ceil(slides.length / slidesPerView)
+      setSlideWidths()
+      buildDots()
+      goTo(Math.min(current, maxIndex))
+    }
+
+    // --- Events ---
+    prevBtn.addEventListener('click', () => goTo(current - slidesPerView))
+    nextBtn.addEventListener('click', () => goTo(current + slidesPerView))
+
+    let startX = 0
+    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX }, { passive: true })
+    track.addEventListener('touchend', (e) => {
+      const diff = startX - e.changedTouches[0].clientX
+      if (Math.abs(diff) > 50) {
+        goTo(diff > 0 ? current + slidesPerView : current - slidesPerView)
+      }
+    })
+
+    let resizeTimer: ReturnType<typeof setTimeout>
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(init, 150)
+    })
+
+    init()
+  }
+
+  document.querySelectorAll<HTMLElement>('.carousel').forEach(initCarousel)
+</script>

@@ -1,0 +1,149 @@
+---
+import Button from '../ui/Button.astro'
+import Image from 'astro/components/Image.astro'
+
+const URI = import.meta.env.PUBLIC_WP_UPLOADS_URL
+---
+
+<section class="admission section">
+  <div class="container">
+    <div class="admission__inner">
+
+      <!-- Colonne texte -->
+      <div class="admission__content">
+
+        <h2 class="admission__title">Admission en 3 étapes</h2>
+        <div class="admission__text">
+          <p>
+            Intégrez l'une de nos <strong>formations de design à distance</strong>,
+            <strong>sans compétences</strong>, ni <strong>connaissances préalables</strong>.<br />
+            De la motivation et un ordinateur, une webcam et une imprimante/scanner
+            suffisent à intégrer notre formation. Les compétences et les connaissances
+            en design vous seront fournies au cours de votre formation.
+          </p>
+          <p>
+            Si vous avez déjà suivi une formation ou une expérience dans le domaine,
+            vous pouvez sur dossier intégrer un Grade supérieur.
+          </p>
+        </div>
+
+        <Button
+          href="https://www.ecolelafontaine.fr/candidature"
+          label="Je candidate"
+          variant="primary"
+          size="full"
+        />
+      </div>
+
+      <!-- Colonne image -->
+      <div class="admission__visual">
+        <Image
+          src={`${URI}/2026/02/admission-scaled.png.avif`}
+          alt="Étudiante en formation design à distance"
+          loading="lazy"
+          draggable="false"
+          height={200}
+          width={200}
+        />
+        <Image
+          src={`${URI}/2026/02/admission-en-3-etapes-.png.avif`}
+          alt="Étudiante en formation design à distance"
+          loading="lazy"
+          draggable="false"
+          height={200}
+          width={200}
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .admission{
+    padding: var(--space-8);
+  }
+  /* ─────────────────────────────────────────
+     Layout
+  ───────────────────────────────────────── */
+  .admission__inner {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-24);
+    align-items: center;
+  }
+
+  /* ─────────────────────────────────────────
+     Contenu
+  ───────────────────────────────────────── */
+  .admission__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* ─────────────────────────────────────────
+     Texte
+  ───────────────────────────────────────── */
+  .admission__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .admission__text p {
+    font-size: var(--text-base);
+    color: var(--text-on-dominant);
+    line-height: 1.7;
+  }
+
+  .admission__text strong {
+    color: var(--text-on-dominant);
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────────
+     Image
+  ───────────────────────────────────────── */
+  .admission__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .admission__visual img {
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
+
+  .admission__visual img:nth-child(1){
+    width: 80%;
+  }
+
+  /* ─────────────────────────────────────────
+     Mobile
+  ───────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .admission__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    /* Image passe en premier sur mobile */
+    .admission__visual {
+      order: -1;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+    }
+
+    .admission__title {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>

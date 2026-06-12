@@ -1,0 +1,287 @@
+---
+import { navConfig } from '../../config/nav'
+
+const currentPath = Astro.url.pathname
+---
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menu principal">
+  <nav class="mobile-menu__nav">
+    <ul class="mobile-menu__list">
+      {navConfig.map((item, index) => {
+        const isActive = item.children
+            ? item.children.some(child => currentPath === child.slug)
+            : currentPath === item.slug
+        return (
+          <li class="mobile-menu__item">
+            {item.children ? (
+              <>
+                <button
+                  class:list={['mobile-menu__trigger', { 'mobile-menu__trigger--active': isActive }]}
+                  aria-expanded={isActive ? 'true' : 'false'}
+                  aria-controls={`mobile-submenu-${index}`}
+                  data-mobile-trigger
+                >
+                  {item.name}
+                  <svg class="mobile-menu__chevron" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <ul
+                  class="mobile-menu__submenu"
+                  id={`mobile-submenu-${index}`}
+                  hidden={!isActive || undefined}
+                >
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.slug}
+                        class:list={['mobile-menu__sublink', { 'mobile-menu__sublink--active': currentPath === child.slug }]}
+                      >
+                        {child.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a
+                href={item.slug}
+                class:list={['mobile-menu__link', { 'mobile-menu__link--active': isActive }]}
+              >
+                {item.name}
+              </a>
+            )}
+          </li>
+        )
+      })}
+    </ul>
+  </nav>
+
+  <div class="mobile-menu__footer">
+    <a href="/documentation" class="cta-btn cta-btn--outline">Demande de documentation</a>
+    <a href="/rappel" class="cta-btn cta-btn--primary">Demande de rappel</a>
+  </div>
+</div>
+
+
+<style>
+  .mobile-menu {
+    position: fixed;
+    inset: 72px 0 0 0;
+    z-index: 99;
+    background-color: var(--color-dominant);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-6);
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .mobile-menu__link,
+  .mobile-menu__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--space-3) var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-on-dominant);
+    background: none;
+    border: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-secondary) 15%, transparent);
+    cursor: pointer;
+    text-align: left;
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-menu__link:hover,
+  .mobile-menu__trigger:hover {
+    color: var(--color-accent);
+  }
+
+  .mobile-menu__chevron {
+    transition: transform var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .mobile-menu__trigger[aria-expanded="true"] .mobile-menu__chevron {
+    transform: rotate(180deg);
+  }
+
+  .mobile-menu__submenu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    gap: var(--space-1);
+  }
+
+  .mobile-menu__submenu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu__sublink {
+    display: block;
+    padding: var(--space-2) var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-on-dominant);
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-menu__sublink:hover {
+    color: var(--color-accent);
+  }
+
+  .mobile-menu__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: auto;
+    padding-top: var(--space-6);
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+  }
+
+  .cta-btn--primary {
+    background-color: var(--color-accent);
+    color: var(--text-on-accent);
+    border: 2px solid var(--color-accent);
+  }
+
+  .cta-btn--outline {
+    background-color: transparent;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+  }
+
+  @media (min-width: 1025px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+
+  .mobile-menu__link--active,
+.mobile-menu__trigger--active {
+  color: var(--color-accent);
+}
+
+.mobile-menu__sublink--active {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+</style>
+
+<script>
+  const burger = document.querySelector('.header__burger') as HTMLButtonElement
+  const menu = document.getElementById('mobile-menu') as HTMLElement
+  const triggers = document.querySelectorAll('[data-mobile-trigger]')
+
+  // Burger toggle
+  burger?.addEventListener('click', () => {
+    const isOpen = menu.classList.contains('is-open')
+
+    if (isOpen) {
+      closeMenu()
+    } else {
+      openMenu()
+    }
+  })
+
+  function openMenu() {
+    menu.classList.add('is-open')
+    menu.setAttribute('aria-hidden', 'false')
+    burger.setAttribute('aria-expanded', 'true')
+    burger.setAttribute('aria-label', 'Fermer le menu')
+    document.body.style.overflow = 'hidden'
+    animateBurger(true)
+  }
+
+  function closeMenu() {
+    menu.classList.remove('is-open')
+    menu.setAttribute('aria-hidden', 'true')
+    burger.setAttribute('aria-expanded', 'false')
+    burger.setAttribute('aria-label', 'Ouvrir le menu')
+    document.body.style.overflow = ''
+    animateBurger(false)
+  }
+
+  function animateBurger(open: boolean) {
+    const spans = burger.querySelectorAll('span')
+    if (open) {
+      spans[0].style.transform = 'translateY(7px) rotate(45deg)'
+      spans[1].style.opacity = '0'
+      spans[2].style.transform = 'translateY(-7px) rotate(-45deg)'
+    } else {
+      spans[0].style.transform = ''
+      spans[1].style.opacity = ''
+      spans[2].style.transform = ''
+    }
+  }
+
+  // Accordéon sous-menus
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true'
+      const targetId = trigger.getAttribute('aria-controls')
+      const submenu = document.getElementById(targetId!)
+
+      // Ferme les autres
+      triggers.forEach((t) => {
+        if (t !== trigger) {
+          t.setAttribute('aria-expanded', 'false')
+          const otherId = t.getAttribute('aria-controls')
+          const other = document.getElementById(otherId!)
+          other?.setAttribute('hidden', '')
+        }
+      })
+
+      if (isExpanded) {
+        trigger.setAttribute('aria-expanded', 'false')
+        submenu?.setAttribute('hidden', '')
+      } else {
+        trigger.setAttribute('aria-expanded', 'true')
+        submenu?.removeAttribute('hidden')
+      }
+    })
+  })
+
+  // Fermeture ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+      closeMenu()
+      burger.focus()
+    }
+  })
+
+  // Fermeture au clic sur un lien
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMenu())
+  })
+</script>

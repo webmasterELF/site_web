@@ -1,0 +1,32 @@
+---
+import Carousel from '../ui/Carousel.astro'
+import MethodCard from '../ui/MethodCard.astro'
+import { methodSteps } from '../../data/method'
+---
+
+<section class="method-carousel-section section">
+  <div class="container">
+
+    <div class="method-carousel-section__header">
+      <h2>Notre méthode</h2>
+      <p>Une pédagogie pensée pour vous accompagner du premier cours jusqu'à l'emploi.</p>
+    </div>
+
+    <Carousel slidesPerView={{ mobile: 1, tablet: 2, desktop: 3 }} gap={24}>
+      {methodSteps.map(step => (
+        <MethodCard number={step.number} text={step.text} />
+      ))}
+    </Carousel>
+
+  </div>
+</section>
+
+<style>
+  .method-carousel-section {
+    padding: var(--space-12);
+  }
+
+  .method-carousel-section__header p {
+    margin-bottom: var(--space-4);
+  }
+</style>

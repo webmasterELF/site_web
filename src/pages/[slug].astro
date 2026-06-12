@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPages } from '../lib/wordpress';
+import type { WPPage } from '../types/wordpress';
+
+export async function getStaticPaths() {
+  const STATIC_SLUGS = ['contact', 'a-propos'];
+  
+  const pages = await getPages();
+
+  return pages
+    .filter((page: WPPage) => !STATIC_SLUGS.includes(page.slug))
+    .map((page: WPPage) => ({
+      params: { slug: page.slug },
+      props: { page },
+    }));
+}
+
+const { page } = Astro.props as { page: WPPage };
+---
+
+<Layout title={page.title.rendered}>
+  <main>
+    <h1>{page.title.rendered}</h1>
+    <section set:html={page.content.rendered} />
+  </main>
+</Layout>

@@ -1,0 +1,52 @@
+---
+const items = [
+  "✦ Accompagnement personnalisé",
+  "✦ Suivi dédié jusqu'à l'emploi",
+  "✦ Votre formation partout où que vous soyez",
+  "✦ Formations 100% en ligne",
+]
+
+// On duplique pour le loop infini
+const doubled = [...items, ...items]
+---
+
+<div class="marquee">
+  <div class="marquee__track">
+    {doubled.map((item) => (
+      <span class="marquee__item">{item}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    background-color: var(--color-accent);
+    padding: var(--space-3) 0;
+    width: 100%;
+  }
+
+  .marquee__track {
+    display: flex;
+    gap: var(--space-8);
+    width: max-content;
+    animation: marquee 10s linear infinite;
+  }
+
+  .marquee__item {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-on-accent);
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-25%); }
+  }
+
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+</style>

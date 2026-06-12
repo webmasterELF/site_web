@@ -1,0 +1,445 @@
+---
+import Image from 'astro/components/Image.astro'
+import { audiences } from '../../data/audiences'
+import Button from '../ui/Button.astro'
+---
+
+<section class="audience section">
+  <div class="container">
+
+    <div class="audience__header">
+      <h2>À qui s'adressent nos formations ?</h2>
+      <p>Que vous souhaitiez vous reconvertir, démarrer après le bac ou apprendre en alternance, nous avons un parcours pour vous.</p>
+    </div>
+
+    <div class="audience__cards">
+      {audiences.map((item, i) => (
+        <article
+          class={`acard${''}`}
+          style={`--bg: ${item.bg}; --fg: ${item.color};`}
+          tabindex="0"
+          data-expanded={i === 0 ? 'true' : 'false'}
+          aria-label={item.title}
+        >
+
+          <div class="acard__label">
+            <span>{item.title}</span>
+          </div>
+
+          <div class="acard__visual">
+            <Image src={item.image} alt={item.alt} loading="lazy" draggable="false" width={300} height={300}/>
+          </div>
+
+          <div class="acard__body" aria-hidden="true">
+            <div class="acard__body-inner">
+              <h3>{item.title}</h3>
+              <div class="acard__text" set:html={item.content} />
+              <Button
+                href={item.href}
+                label={item.cta}
+                variant="primary"
+                size="md"
+                class="acard__cta"
+              />
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+
+  .audience{
+    padding: var(--space-12);
+  }
+  /* ─────────────────────────────────────────
+     Header
+  ───────────────────────────────────────── */
+  .audience__header {
+    margin-bottom: var(--space-8);
+  }
+
+  /* ─────────────────────────────────────────
+     Conteneur
+  ───────────────────────────────────────── */
+  .audience__cards {
+    display: flex;
+    gap: 8px;
+    height: clamp(480px, 55vh, 660px);
+    align-items: stretch;
+  }
+
+  /* ─────────────────────────────────────────
+     Card — base
+  ───────────────────────────────────────── */
+  .acard {
+    --dur: 0.55s;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background-color: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+    transition: flex-grow var(--dur) var(--ease);
+    outline: none;
+  }
+
+  .acard:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+  }
+
+  .acard.is-active {
+    flex-grow: 4;
+    cursor: default;
+  }
+
+  .acard.is-collapsed {
+    flex-grow: 0.6;
+    cursor: pointer;
+  }
+
+  /* ─────────────────────────────────────────
+     Label (titre vertical, état collapsed)
+  ───────────────────────────────────────── */
+  .acard__label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 0.25s var(--ease);
+    pointer-events: none;
+    padding: 12px 8px;
+  }
+
+  .acard__label span {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: clamp(0.75rem, 1.1vw, 1rem);
+    font-weight: 600;
+    white-space: nowrap;
+    color: inherit;
+    letter-spacing: 0.03em;
+  }
+
+  .acard.is-active .acard__label {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .acard:not(.is-active):not(.is-collapsed) .acard__label {
+    opacity: 0;
+  }
+
+  /* ─────────────────────────────────────────
+     Image
+  ───────────────────────────────────────── */
+  .acard__visual {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .acard__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    user-select: none;
+  }
+
+  .acard.is-collapsed .acard__visual {
+    opacity: 0;
+  }
+
+  .acard.is-active .acard__visual {
+    right: 60%;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 1;
+  }
+
+  /* ─────────────────────────────────────────
+     Overlay gradient
+  ───────────────────────────────────────── */
+  .acard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%);
+    z-index: 1;
+    border-radius: inherit;
+    transition: opacity var(--dur) var(--ease);
+    pointer-events: none;
+  }
+
+  .acard.is-active::before {
+    opacity: 0;
+  }
+
+  .acard:not(.is-active):not(.is-collapsed)::after {
+    content: attr(aria-label);
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: clamp(0.8rem, 1.2vw, 1.05rem);
+    font-weight: 600;
+    color: #fff;
+    z-index: 3;
+    padding: 0 12px;
+    pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  /* ─────────────────────────────────────────
+     Contenu
+  ───────────────────────────────────────── */
+  .acard__body {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(16px);
+    transition:
+      opacity 0.3s var(--ease) 0.15s,
+      transform 0.3s var(--ease) 0.15s;
+    pointer-events: none;
+  }
+
+  .acard.is-active .acard__body {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+
+  .acard__body-inner {
+    padding: 28px 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: var(--space-4);
+  }
+
+  .acard__body-inner h3 {
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .acard__text {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+  }
+
+  .acard__text :global(p) {
+    font-size: clamp(0.8rem, 1vw, 0.92rem);
+    line-height: 1.65;
+    color: inherit;
+    margin-bottom: 10px;
+  }
+
+  .acard__text :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .acard__text :global(strong) {
+    font-weight: 700;
+  }
+
+  /* ─────────────────────────────────────────
+     CTA — surcharge du composant Button
+  ───────────────────────────────────────── */
+  .acard__body-inner :global(.acard__cta.btn) {
+    align-self: flex-start;
+    flex-shrink: 0;
+    margin-top: auto;
+    tabindex: -1;
+  }
+
+  /* ─────────────────────────────────────────
+     Mobile
+  ───────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .audience__cards {
+      flex-direction: column;
+      height: auto;
+      gap: 8px;
+    }
+
+    .acard,
+    .acard.is-active,
+    .acard.is-collapsed {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: auto;
+      flex-direction: column;
+      width: 100%;
+      border-radius: 14px;
+      cursor: pointer;
+      min-height: 56px;
+      transition: none;
+    }
+
+    .acard__visual {
+      position: relative;
+      inset: unset;
+      width: 100%;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: height 0.45s ease, opacity 0.3s ease;
+    }
+
+    .acard__visual img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .acard.is-active .acard__visual {
+      height: 200px;
+      opacity: 1;
+      position: relative;
+    }
+
+    .acard::before {
+      display: none;
+    }
+
+    .acard__label {
+      position: relative;
+      inset: unset;
+      opacity: 1 !important;
+      padding: 16px 20px;
+      justify-content: flex-start;
+    }
+
+    .acard__label span {
+      writing-mode: horizontal-tb;
+      font-size: 1rem;
+    }
+
+    .acard:not(.is-active):not(.is-collapsed)::after {
+      display: none;
+    }
+
+    .acard__body {
+      position: relative;
+      left: unset;
+      top: unset;
+      right: unset;
+      bottom: unset;
+      max-height: 0;
+      opacity: 0;
+      transform: none;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height 0.45s ease, opacity 0.3s ease;
+    }
+
+    .acard.is-active .acard__body {
+      max-height: 1000px;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      overflow: visible;
+    }
+
+    .acard__body-inner {
+      padding: 0 20px 20px;
+      height: auto;
+      gap: var(--space-3);
+    }
+
+    .acard__body-inner h3 {
+      display: none;
+    }
+
+    .acard__text {
+      overflow: visible;
+    }
+
+    .acard__body-inner :global(.acard__cta.btn) {
+      width: 100%;
+      text-align: center;
+      align-self: stretch;
+    }
+  }
+</style>
+
+<script>
+  function initAudienceCards(): void {
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('.acard')
+    )
+
+    if (!cards.length) return
+
+    function activate(target: HTMLElement): void {
+      const isAlreadyActive = target.classList.contains('is-active')
+
+      cards.forEach(card => {
+        card.classList.remove('is-active', 'is-collapsed')
+        card.setAttribute('data-expanded', 'false')
+        card.querySelector<HTMLElement>('.btn.acard__cta')
+          ?.setAttribute('tabindex', '-1')
+      })
+
+      if (isAlreadyActive) return
+
+      target.classList.add('is-active')
+      target.setAttribute('data-expanded', 'true')
+      target.querySelector<HTMLElement>('.btn.acard__cta')
+        ?.setAttribute('tabindex', '0')
+
+      cards.forEach(card => {
+        if (card !== target) card.classList.add('is-collapsed')
+      })
+
+      if (window.innerWidth <= 768) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('.btn.acard__cta')) return
+        activate(card)
+      })
+
+      card.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          activate(card)
+        }
+      })
+    })
+  }
+
+  initAudienceCards()
+</script>

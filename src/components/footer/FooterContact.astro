@@ -1,0 +1,47 @@
+---
+const contact = {
+  email: 'info@ecolelafontaine.fr',
+  phone: '09 52 20 46 03',
+  phoneRaw: '0952204603',
+  address: '40 rue Romaine',
+  city: '03100, Montluçon',
+}
+---
+
+<div class="footer-contact">
+  <p class="footer-contact__title">École la Fontaine</p>
+  <address class="footer-contact__address">
+    <a href={`mailto:${contact.email}`} class="footer-contact__link">{contact.email}</a>
+    <a href={`tel:${contact.phoneRaw}`} class="footer-contact__link" id="phone">{contact.phone}</a>
+    <span>{contact.address}</span>
+    <span>{contact.city}</span>
+  </address>
+</div>
+
+<style>
+  .footer-contact__title {
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-3);
+  }
+
+  .footer-contact__address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--color-white);
+    opacity: 0.8;
+  }
+
+  .footer-contact__link {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .footer-contact__link:hover {
+    opacity: 1;
+  }
+</style>

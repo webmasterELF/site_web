@@ -1,0 +1,85 @@
+---
+interface Props {
+  number: number
+  text: string
+}
+
+const { number, text } = Astro.props
+
+const formatted = String(number).padStart(2, '0')
+---
+
+<div class="method-card">
+  <span class="method-card__number">{formatted}.</span>
+  <p class="method-card__text">{text}</p>
+</div>
+
+<style>
+  .method-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-dominant);
+    border: 2px solid var(--color-border);
+    min-height: 275px;
+    height: 100%;
+    box-sizing: border-box;
+    transition: background  var(--transition-fast);
+  }
+
+  .method-card__text {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .method-card:nth-child(3n + 1){
+    border: 2px solid #4390F8;
+  }
+  
+  .method-card:nth-child(3n + 2){
+    border: 2px solid #FC85D0;
+  }
+  
+  .method-card:nth-child(3n + 3){
+    border: 2px solid #FCB451;
+  }
+
+  .method-card__number {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .method-card:nth-child(3n + 1) .method-card__number{
+    color: #4390F8;
+  }
+  
+  .method-card:nth-child(3n + 2) .method-card__number{
+    color: #FC85D0;;
+  }
+  
+  .method-card:nth-child(3n + 3) .method-card__number{
+    color: #FCB451;
+  }
+
+  .method-card:nth-child(3n + 1):hover{
+    background-color: #4390F8;
+  }
+  
+  .method-card:nth-child(3n + 2):hover{
+    background-color: #FC85D0;
+  }
+  
+  .method-card:nth-child(3n + 3):hover{
+    background-color: #FCB451;
+  }
+
+  .method-card:hover .method-card__number,
+  .method-card:hover .method-card__text{
+    color: var(--text-on-secondary);
+  }
+</style>

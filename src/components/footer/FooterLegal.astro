@@ -1,0 +1,63 @@
+---
+const year = new Date().getFullYear()
+---
+
+<div class="footer-legal">
+  <div class="footer-legal__links">
+    <a href="/mentions-legales" class="footer-legal__link">Mentions légales</a>
+    <button
+      type="button"
+      class="footer-legal__cookie-btn"
+      onclick="openAxeptioCookies()"
+    >
+      Préférences cookies
+    </button>
+  </div>
+  <p class="footer-legal__copyright">
+    Copyright © {year} — Tous droits réservés — École la Fontaine
+  </p>
+</div>
+
+<style>
+  .footer-legal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+  }
+
+  .footer-legal__links {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-legal__link,
+  .footer-legal__cookie-btn {
+    color: var(--color-white);
+    opacity: 0.7;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .footer-legal__link:hover,
+  .footer-legal__cookie-btn:hover {
+    opacity: 1;
+  }
+
+  .footer-legal__copyright {
+    font-size: var(--text-xs);
+    color: var(--color-white);
+    opacity: 0.5;
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets'
+import { socialsConfig } from '../../config/socials'
+
+import facebookIcon from '../../assets/icons/social/facebook.svg'
+import instagramIcon from '../../assets/icons/social/instagram.svg'
+import linkedinIcon from '../../assets/icons/social/linkedin.svg'
+import tiktokIcon from '../../assets/icons/social/tiktok.svg'
+import youtubeIcon from '../../assets/icons/social/youtube.svg'
+
+const iconMap = {
+  facebook: facebookIcon,
+  instagram: instagramIcon,
+  linkedin: linkedinIcon,
+  tiktok: tiktokIcon,
+  youtube: youtubeIcon,
+}
+
+const socials = socialsConfig.map((s) => ({
+  ...s,
+  icon: iconMap[s.icon],
+}))
+---
+
+<div class="footer-social">
+  <p class="footer-social__label">Suivez l'École la Fontaine</p>
+  <ul class="footer-social__list" role="list">
+    {socials.map((social) => (
+      <li>
+        <a
+          href={social.url}
+          rel="nofollow noopener noreferrer"
+          target="_blank"
+          class="footer-social__link"
+          aria-label={social.name}
+        >
+          <Image src={social.icon} alt="" width={18} height={18} loading="lazy"/>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+<style>
+  .footer-social__label {
+    font-size: var(--text-sm);
+    color: var(--color-white);
+    opacity: 0.8;
+    margin-bottom: var(--space-3);
+    text-align: center;
+  }
+
+  .footer-social__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-social__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    transition: transform var(--transition-base), background-color var(--transition-base);
+  }
+
+  .footer-social__link:hover {
+    transform: scale(1.1);
+    background-color: var(--color-accent-dark, var(--color-accent));
+  }
+
+   .footer-social__list img {
+    width: 18px;
+    height: 18px;
+    filter: invert(100%);
+  }
+</style>

@@ -1,11 +1,290 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import Image from 'astro/components/Image.astro';
+import Bandeau from '../components/ui/Bandeau.astro';
+import CourseCarousel from '../components/sections/CourseCarousel.astro';
+import Bento from '../components/ui/Bento.astro';
+import MethodCarousel from '../components/sections/MethodCarousel.astro';
+import AudienceCards from '../components/sections/AudienceCards.astro';
+import AdmissionStrip from '../components/sections/AdmissionStrop.astro'
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="École de Design la Fontaine — Formations 100% en ligne" transparentHeader={true}>
+
+  <section class="hero section">
+    <div class="hero__inner container">
+      <div class="hero__visual">
+        <Image
+          src=`${import.meta.env.PUBLIC_WP_UPLOADS_URL}/2026/02/femme-v2-1024x1024.png.avif`
+          alt="Étudiant en formation design à l'École la Fontaine"
+          width="600"
+          height="700"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="hero__content">
+        <h1 class="hero__title">
+          École de Design <span class="hero__title--accent">la Fontaine</span>
+        </h1>
+
+        <p class="hero__intro">
+          Des formations de design, hors ParcourSup, <strong>100% en ligne</strong> pour vivre de sa passion.
+        </p>
+
+        <p class="hero__description">
+          Notre école est adaptée si vous êtes en <strong>reconversion professionnelle</strong>, étudiant <strong>post-bac</strong> ou déjà professionnel dans le design.
+        </p>
+
+        <ul class="hero__guarantees">
+          <li><span class="hero__guarantees-icon">✦</span> Une <strong>formation de qualité avec des pros</strong></li>
+          <li><span class="hero__guarantees-icon">✦</span> Un <strong>accompagnement pédagogique personnalisé</strong></li>
+          <li><span class="hero__guarantees-icon">✦</span> Un <strong>suivi dédié jusqu'à l'emploi</strong></li>
+          <li><span class="hero__guarantees-icon">✦</span> Où que vous soyez !</li>
+        </ul>
+
+        <div class="hero__actions">
+          <Button label="Découvrir les formations" href="/formations" variant="primary" size="full" />
+          <Button label="Prendre rendez-vous" href="/contact" variant="outline" size="full" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <Bandeau/>
+  <CourseCarousel />
+  <!-- ABOUT -->
+  <section class="about section">
+    <div class="about__inner container">
+      <div class="about__text">
+        <h2>Une formation d’art et design à distance</h2>
+        <p>L'<strong>école de Design la Fontaine</strong> est spécialisée depuis 2015 dans les formations de design à distance. Nous permettons à des <strong>créatifs</strong> d'obtenir un <strong>diplôme</strong> et de <strong>vivre de leur passion pour le Design</strong>.</p>
+        <p>Notre méthode repose sur <strong>trois fondements</strong> : la bienveillance, l'accompagnement et la professionnalisation.</p>
+        <p>La <strong>bienveillance</strong> avec une pédagogie qui s'adapte au rythme de chacun.</p>
+        <p>L'<strong>accompagnement</strong> par des professionnels en activité qui transmettent leur savoir-faire et leurs secrets.</p>
+        <p>La <strong>professionnalisation</strong> avec l'acquisition de compétences spécifiques qui permettent de faire la différence sur le marché du travail. Nos élèves sont des étudiants en poursuite d'études ou des personnes en reconversion professionnelle, situés sur tout le territoire français et au-delà. Si vous avez été bridé ou mal orienté dans votre choix de carrière, notre mission est de vous accompagner pour que vous puissiez devenir Designer et vivre de votre passion !</p>
+        <p>Devenir un <strong>designer accompli</strong> demande de la <strong>persévérance</strong>, du <strong>temps</strong>, du <strong>travail</strong> et un <strong>engagement</strong> constant, que le distanciel vous fournit à travers la réalisation de projets concrets en design graphique, design d'espace et design produit.</p>
+        <p>L'équipe de l'École de Design la Fontaine reste à vos côtés pour vous soutenir tout au long de ce parcours exigeant, mais gratifiant.</p>
+      </div>
+      <div class="bento__section">
+        <Bento image="2024/10/PHOTO-POUR-SITE-WEB.png.avif" imageAlt="Équipe École de Design la Fontaine"/>
+        <div class="container__img">
+          <Image src=`${import.meta.env.PUBLIC_WP_UPLOADS_URL}/2026/03/Qualiopi.jpg.avif`alt="Logo Qualiopi avec la Marianne République Française, au format 300dpi"width="300" height="300"loading="lazy"/>
+          <div class="img__text">
+            <Image src=`${import.meta.env.PUBLIC_WP_UPLOADS_URL}/2023/03/university-Education-1-1.png.avif`alt="Datadocké"width="150" height="150"loading="lazy"/>
+            <p>Établissement privé soumis au contrôle pédagogique de l’État et du Rectorat de l’académie de Clermont-Ferrand.</p>
+          </div>
+          <Image src=`${import.meta.env.PUBLIC_WP_UPLOADS_URL}/2023/03/datadock-1.jpg.avif`alt="Datadocké"width="200" height="200"loading="lazy"/>
+        </div>
+      </div>      
+    </div>
+  </section>
+  <!-- Methode -->
+  <MethodCarousel />
+  <!-- Audence -->
+  <AudienceCards/>
+  <!-- Admission -->
+  <AdmissionStrip />
+  <!-- Avis -->
+   <section class="review section">
+    <div class="review__inner container">
+      <h2>Les avis sur nos formations</h2>
+      <!-- Avis Vérifier - Intégration -->
+      <div class="skeepers_carousel_container" data-slides-count="4"></div><script defer charset="utf-8" src="//widgets.rr.skeepers.io/carousel/fc0e1827-df95-61a4-7d77-3cfb917d16be/c74c1775-50f2-40b9-b583-161a09dceb06.js"></script>
+    </div>
+   </section>
+   <!-- Partner -->
+    <section class="partner section">
+    <div class="partner__inner container">
+      <h2>Nos partenaires</h2>
+      <div class="partner__img">
+        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2023/02/xp-pen-logo.webp" alt="Logo XPPen" width="100" height="100"/>
+        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2025/11/adobe-logo.png" alt="Logo Adobe" width="100" height="100"/>
+        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2022/06/geant-des-beaux-arts.jpg.avif" alt="Logo Géant des beaux Arts" width="100" height="100"/>
+        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2022/06/dalbe.jpg.avif" alt="Logo Dalbe" width="100" height="100"/>
+        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2024/10/Le-bur02-logo.png.avif" alt="Logo Le buro2" width="100" height="100"/>
+      </div>
+    </div>
+   </section>
 </Layout>
+
+<style>
+  .hero {
+    margin-top: -72px;
+    padding-top: calc(72px + var(--space-16));
+    padding-bottom: 0;
+    background: linear-gradient(200deg, rgba(67, 144, 248, .9) 61%, rgba(255, 225, 126, .9) 100%);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--space-16);
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .hero__content {
+    position: relative;
+    background: var(--color-dominant);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-12) var(--space-8) var(--space-12);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero__title {
+    text-wrap: pretty;
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+    margin-block: var(--space-6);
+  }
+
+  .hero__title--accent {
+    color: var(--color-accent);
+  }
+
+  .hero__intro {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+  }
+
+  .hero__description {
+    font-size: var(--text-base);
+    color: color-mix(in srgb, var(--text-on-dominant) 60%, transparent);
+    margin-bottom: var(--space-6);
+    line-height: 1.7;
+  }
+
+  .hero__guarantees {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__guarantees li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .hero__guarantees-icon {
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    flex-shrink: 0;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: nowrap;
+  }
+
+  .hero__visual {
+    overflow: hidden;
+  }
+
+  .hero__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__visual {
+      order: 1;
+      max-height: 300px;
+    }
+    .hero__actions{
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<!-- ABOUT Style -->
+<style>
+  .about__inner {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .about__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .about__text p {
+    font-size: var(--text-base);
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .about__text strong {
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .container__img{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-8);
+  }
+
+  .img__text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .img__text p {
+    text-align: center;
+    font-size: var(--text-xs);
+    text-wrap: pretty;
+    max-width: 80%;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .about__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+  }
+</style>
+
+<!-- Review -->
+ <style>
+  .review__inner h2{
+    margin-bottom: var(--space-8);
+  }
+ </style>
+
+ <!-- Partner -->
+  <style>
+    .partner__img{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around;
+      align-items: center;
+      margin: var(--space-8) auto;
+    }
+  </style>

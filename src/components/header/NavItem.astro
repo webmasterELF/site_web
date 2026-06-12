@@ -1,0 +1,131 @@
+---
+import type { NavItem } from '../../config/nav'
+
+interface Props {
+  item: NavItem
+  currentPath: string
+}
+
+const { item, currentPath } = Astro.props
+const hasChildren = item.children && item.children.length > 0
+
+const isActive = item.children
+  ? item.children.some(child => currentPath === child.slug)
+  : currentPath === item.slug
+---
+
+<li class:list={['nav__item', { 'nav__item--dropdown': hasChildren }]}>
+  {hasChildren ? (
+    <button
+      class:list={['nav__link', 'nav__trigger', { 'nav__link--active': isActive }]}
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label={item.name}
+    >
+      {item.name}
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <ul class="nav__dropdown">
+  {item.children?.map((child) => (
+    <li>
+      <a
+        href={child.slug}
+        class:list={['nav__dropdown-link', { 'nav__dropdown-link--active': currentPath === child.slug }]}
+        aria-label={child.name}
+      >
+        {child.name}
+      </a>
+    </li>
+  ))}
+</ul>
+
+  ) : (
+    <a
+      href={item.slug}
+      class:list={['nav__link', { 'nav__link--active': isActive }]}
+      aria-label={item.name}
+    >
+      {item.name}
+    </a>
+  )}
+</li>
+
+<style>
+  .nav__item {
+    position: relative;
+  }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-on-dominant);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    color: var(--color-accent);
+    background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    opacity: 1;
+  }
+
+  .nav__link--active {
+  color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  }
+
+  .nav__dropdown {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    min-width: 200px;
+    background-color: var(--color-dominant);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+    padding: var(--space-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+  }
+
+  .nav__item--dropdown:hover .nav__dropdown,
+  .nav__item--dropdown:focus-within .nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav__dropdown-link {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-on-dominant);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .nav__dropdown-link:hover {
+    color: var(--color-accent);
+    background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    opacity: 1;
+  }
+
+  .nav__dropdown-link--active {
+  color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  }
+</style>

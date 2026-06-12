@@ -1,0 +1,195 @@
+---
+import Image from 'astro/components/Image.astro'
+
+// src/components/ui/Bento.astro
+
+interface Props {
+  image: string
+  imageAlt?: string
+}
+
+const { image, imageAlt = '' } = Astro.props
+const URI = import.meta.env.PUBLIC_WP_UPLOADS_URL
+---
+
+<div class="bento">
+
+  <!-- Ligne 1 : image + stat principale + note -->
+  <div class="bento__row">
+    <Image
+      src={`${URI}/${image}`}
+      alt={imageAlt}
+      class="bento__image"
+      loading="lazy"
+      decoding="async"
+      width={200}
+      height={200}
+    />
+    <div class="bento__col">
+      <div class="bento__cell bento__cell--pink">
+        <p class="bento__number">95<span>%</span></p>
+        <p class="bento__desc">Élèves obtiennent leurs diplômes de design à la fin de leurs cursus.*</p>
+      </div>
+      <div class="bento__cell bento__cell--blue bento__cell--note">
+        <p>*2021 à 2025 : Bachelor (Diplôme non reconnu par l'État), 104 candidats. Taux d'intégration, sondage réalisé auprès de nos diplômés Bachelor, 29 répondants.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ligne 2 : deux stats -->
+  <div class="bento__row">
+    <div class="bento__cell bento__cell--blue bento__cell--half">
+      <p class="bento__number"><span>+</span>900</p>
+      <p class="bento__desc">Élèves inscrits dans l'une de nos 16 formations dans le design en ligne depuis 2015.</p>
+    </div>
+    <div class="bento__cell bento__cell--yellow bento__cell--half">
+      <p class="bento__number">80<span>%</span></p>
+      <p class="bento__desc">Diplômé·e·s trouvent un travail dans le design dans les 6 mois.*</p>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  /* =====================
+     LAYOUT
+  ===================== */
+  .bento {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .bento__row {
+    display: flex;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  .bento__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+  }
+
+  /* =====================
+     IMAGE
+  ===================== */
+  .bento__image {
+    width: 60%;
+    flex-shrink: 0;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+    object-position: top;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+
+  /* =====================
+     CELLS
+  ===================== */
+  .bento__cell {
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bento__cell--half {
+    flex: 1;
+  }
+
+  .bento__cell--note {
+    flex: 1;
+  }
+
+  /* Couleurs */
+  .bento__cell--pink {
+    background-color: #FC8BD3;
+    color: var(--color-text);
+  }
+
+  .bento__cell--blue {
+    background-color: #4390F8;
+    color: #ffffff;
+  }
+
+  .bento__cell--yellow {
+    background-color: #FFE550;
+    color: var(--color-text);
+  }
+
+  /* =====================
+     TYPOGRAPHIE
+  ===================== */
+  .bento__number {
+    font-family: var(--font-heading);
+    font-size: var(--text-6xl, 96px);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    margin: 0;
+  }
+
+  .bento__number span {
+    font-size: var(--text-5xl, 64px);
+  }
+
+  .bento__desc {
+    font-size: var(--text-base);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .bento__cell--note p {
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  /* =====================
+     RESPONSIVE — Tablette
+  ===================== */
+  @media (max-width: 768px) {
+    .bento__row:first-child {
+      flex-direction: column;
+    }
+
+    .bento__image {
+      width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    .bento__cell--note {
+      display: none;
+    }
+
+    .bento__number {
+      font-size: 72px;
+    }
+
+    .bento__number span {
+      font-size: 48px;
+    }
+  }
+
+  /* =====================
+     RESPONSIVE — Mobile
+  ===================== */
+  @media (max-width: 480px) {
+    .bento__number {
+      font-size: 56px;
+    }
+
+    .bento__number span {
+      font-size: 36px;
+    }
+
+    .bento__desc {
+      font-size: var(--text-sm);
+    }
+  }
+</style>

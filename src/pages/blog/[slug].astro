@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getArticles } from '../../lib/wordpress';
+import type { WPPost } from '../../types/wordpress';
+
+export async function getStaticPaths() {
+  const posts = await getArticles();
+
+  return posts
+    .filter((post: WPPost) => {
+      const cat = post._embedded?.['wp:term']?.[0]?.[0]?.slug;
+      return !cat || cat === 'uncategorized';
+    })
+    .map((post: WPPost) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props as { post: WPPost };
+---
+
+<Layout title={post.title.rendered}>
+  <main>
+    <h1>{post.title.rendered}</h1>
+    <article set:html={post.content.rendered} />
+    <a href="/blog">← Retour au blog</a>
+  </main>
+</Layout>

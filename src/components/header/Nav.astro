@@ -1,0 +1,29 @@
+---
+import NavItem from './NavItem.astro'
+import { navConfig } from '../../config/nav'
+
+const currentPath = Astro.url.pathname
+---
+
+<nav class="nav" aria-label="Navigation principale">
+  <ul class="nav__list">
+    {navConfig.map((item) => (
+      <NavItem item={item} currentPath={currentPath}/>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      display: none;
+    }
+  }
+</style>

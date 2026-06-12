@@ -1,0 +1,36 @@
+---
+import Carousel from '../ui/Carousel.astro'
+import CourseCard from '../ui/CourseCard.astro'
+import { formations } from '../../data/formations'
+---
+
+<section class="course-carousel-section section">
+  <div class="container">
+    <div class="course-carousel-section__header">
+      <h2>Nos formations de design 100% en ligne</h2>
+      <p>Des parcours conçus pour vous permettre de vivre de votre passion.</p>
+    </div>
+
+    <Carousel slidesPerView={{ mobile: 1, tablet: 2, desktop: 5 }} gap={24}>
+      {formations.map(formation => (
+        <CourseCard
+          title={formation.title}
+          image={formation.thumbnail}
+          alt={formation.alt}
+          category={formation.category}
+          href={formation.externalUrl}
+        />
+      ))}
+    </Carousel>
+
+  </div>
+</section>
+<style>
+    .course-carousel-section {
+        padding: var(--space-12);
+    }
+
+    .course-carousel-section__header p{
+        margin-bottom: var(--space-4);
+    }
+</style>
