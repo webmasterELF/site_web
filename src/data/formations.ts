@@ -1,12 +1,37 @@
 import type { FormationCard } from "../types/formation";
 
+// Imports des images
+import imgDesignGraphique from "../assets/formations/BACHELOR-DESIGN-GRAPHIQUE.png";
+import imgDesignEspace from "../assets/formations/BACHELOR-DESIGN-ESPACE.png";
+import imgDesignProduit from "../assets/formations/BACHLOR-DESIGN-PRODUIT.png";
+import imgPrepaDesign from "../assets/formations/PREPA-DESIGN.png";
+import imgConcepteurUI from "../assets/formations/CONCPTEUR-UI.png";
+import imgGraphiste from "../assets/formations/TP-GRAPHISTE.png";
+import imgDessin from "../assets/formations/formation-dessin.png";
+import imgArtPlastique from "../assets/formations/ART-PLASTIQUE.png";
+import imgHistoireArt from "../assets/formations/histoire-de-l_art.png";
+import imgDemade from "../assets/formations/DE-MADE.png";
+import imgDesignGlobal from "../assets/formations/DESIGN-GLOBALDESSIN.png";
+import imgConceptionGraphique from "../assets/formations/CONCEPTION-GRAPHIQUE.png";
+import imgAmenagementInterieur from "../assets/formations/amenagement-d_interieur AMENAGEMENT-D_INTERIEUR.png";
+import imgDesignIndustriel from "../assets/formations/DESIGN-INDUSTRIEL.png";
+import imgLogicielGraphique from "../assets/formations/LOGICIEL-GRAPHIQUE.png";
+import imgLogicielEspace from "../assets/formations/LOGICIEL-ESPACED_INTERIEUR.png";
+import imgLogicielModelisation from "../assets/formations/MINI-FORMATION-LOGICIELS-MODELISATION.png";
+import imgHistoireDesignGraphique from "../assets/formations/Histoire-du-Design-Graphique.png";
+import imgHistoireDesignEspace from "../assets/formations/Histoire-du-Design-Espace-Produitespaced_interieur.png";
+import imgFormationPro from "../assets/formations/Formation-Professionnelle.png";
+import imgCommMarketing from "../assets/formations/MINI-FORMATION-COMM-MARKETING.png";
+import imgDeveloppement from "../assets/formations/Developpement-et-organisation-personnelle.png";
+import imgCreationEntreprise from "../assets/formations/Creation-dentreprise.png";
+
 export const formations: FormationCard[] = [
   {
     id: 1,
     slug: "design-graphique",
     title: "Formation Design Graphisme",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/BACHELOR-DESIGN-GRAPHIQUE.png",
+    thumbnail: imgDesignGraphique,
     alt: "Formation Design Graphisme",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/design-graphique",
   },
@@ -15,7 +40,7 @@ export const formations: FormationCard[] = [
     slug: "architecte-interieur",
     title: "Formation Architecte Intérieur",
     category: "espace",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/BACHELOR-DESIGN-ESPACE.png",
+    thumbnail: imgDesignEspace,
     alt: "Formation Architecte Intérieur",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/architecte-interieur",
   },
@@ -24,7 +49,7 @@ export const formations: FormationCard[] = [
     slug: "designer-produit",
     title: "Formation Designer Produit",
     category: "produit",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/BACHLOR-DESIGN-PRODUIT.png",
+    thumbnail: imgDesignProduit,
     alt: "Formation Designer Produit",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/designer-produit",
   },
@@ -33,7 +58,7 @@ export const formations: FormationCard[] = [
     slug: "prepa-design",
     title: "Prépa Design",
     category: "bien-debuter",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/PREPA-DESIGN.png",
+    thumbnail: imgPrepaDesign,
     alt: "Prépa Design",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/prepa-design",
   },
@@ -42,7 +67,7 @@ export const formations: FormationCard[] = [
     slug: "tp-concepteur-designer-ui",
     title: "Concepteur Designer UI",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/CONCPTEUR-UI.png",
+    thumbnail: imgConcepteurUI,
     alt: "Concepteur designer Ui",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/design-graphique/tp-concepteur-designer-ui",
   },
@@ -51,7 +76,7 @@ export const formations: FormationCard[] = [
     slug: "tp-graphiste",
     title: "Formation Graphiste",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/02/TP-GRAPHISTE.png",
+    thumbnail: imgGraphiste,
     alt: "Formation Graphiste",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/design-graphique/tp-graphiste",
   },
@@ -60,7 +85,7 @@ export const formations: FormationCard[] = [
     slug: "dessin",
     title: "Formation Dessin",
     category: "bien-debuter",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/formation-dessin.png",
+    thumbnail: imgDessin,
     alt: "Formation Dessin",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/prepa-design/dessin",
   },
@@ -69,7 +94,7 @@ export const formations: FormationCard[] = [
     slug: "arts-plastiques",
     title: "Formation d'Arts Plastiques",
     category: "bien-debuter",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/ART-PLASTIQUE.png",
+    thumbnail: imgArtPlastique,
     alt: "Formation d'Arts Plastiques",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/prepa-design/arts-plastiques",
   },
@@ -78,7 +103,7 @@ export const formations: FormationCard[] = [
     slug: "histoire-de-lart",
     title: "Formation Histoire de l'Art",
     category: "bien-debuter",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/histoire-de-l_art.png",
+    thumbnail: imgHistoireArt,
     alt: "Formation Histoire de l'Art",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/prepa-design/histoire-de-lart",
   },
@@ -87,7 +112,7 @@ export const formations: FormationCard[] = [
     slug: "demade",
     title: "DEMADE Design",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/DE-MADE.png",
+    thumbnail: imgDemade,
     alt: "DEMADE Design",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/demade",
   },
@@ -96,7 +121,7 @@ export const formations: FormationCard[] = [
     slug: "designer-global",
     title: "Designer Global",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/deign-globaldessin.png",
+    thumbnail: imgDesignGlobal,
     alt: "Designer Global",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/designer-global",
   },
@@ -105,7 +130,7 @@ export const formations: FormationCard[] = [
     slug: "conception-graphique",
     title: "Conception Graphique",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/CONCEPTION-GRAPHIQUE.png",
+    thumbnail: imgConceptionGraphique,
     alt: "Conception Graphique",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/design-graphique/conception-graphique",
   },
@@ -114,7 +139,7 @@ export const formations: FormationCard[] = [
     slug: "amenagement-interieur",
     title: "Aménagement d'intérieur",
     category: "espace",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/amenagement-d_interieur.png",
+    thumbnail: imgAmenagementInterieur,
     alt: "Aménagement d'intérieur",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/architecte-interieur/amenagement-dinterieur",
   },
@@ -123,7 +148,7 @@ export const formations: FormationCard[] = [
     slug: "designer-industriel",
     title: "Designer Industriel",
     category: "produit",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/DESIGN-INDUSTRIEL.png",
+    thumbnail: imgDesignIndustriel,
     alt: "Designer Industriel",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/designer-produit/designer-industriel",
   },
@@ -132,7 +157,7 @@ export const formations: FormationCard[] = [
     slug: "logiciels-graphique",
     title: "Logiciels Graphique",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/logiciel-graphiqued_interieur.png",
+    thumbnail: imgLogicielGraphique,
     alt: "Logiciels Graphique",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/design-graphique/logiciels-graphique",
   },
@@ -141,7 +166,7 @@ export const formations: FormationCard[] = [
     slug: "logiciels-espace",
     title: "Logiciels Espace",
     category: "espace",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/logiciel-espaced_interieur.png",
+    thumbnail: imgLogicielEspace,
     alt: "Logiciels Espace",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/architecte-interieur/logiciels-espace",
   },
@@ -150,7 +175,7 @@ export const formations: FormationCard[] = [
     slug: "logiciel-modelisation",
     title: "Logiciel Produit",
     category: "produit",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/MINI-FORMATION-LOGICIELS-MODELISATION.png",
+    thumbnail: imgLogicielModelisation,
     alt: "Logiciel Produit",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/designer-produit/logiciel-modelisation",
   },
@@ -159,7 +184,7 @@ export const formations: FormationCard[] = [
     slug: "histoire-du-design-graphique",
     title: "Histoire du Design Graphique",
     category: "graphisme",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/Histoire-du-Design-Graphique.png",
+    thumbnail: imgHistoireDesignGraphique,
     alt: "Histoire du Design Graphique",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/histoire-du-design-graphique",
   },
@@ -168,7 +193,7 @@ export const formations: FormationCard[] = [
     slug: "histoire-du-design-espace-produit",
     title: "Histoire du Design Espace & Produit",
     category: "espace",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/Histoire-du-Design-Espace-Produitespaced_interieur.png",
+    thumbnail: imgHistoireDesignEspace,
     alt: "Histoire du Design Espace & Produit",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/histoire-du-design-espace-produit",
   },
@@ -177,7 +202,7 @@ export const formations: FormationCard[] = [
     slug: "formation-professionnelle",
     title: "Formation Professionnelle",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/Formation-Professionnelle.png",
+    thumbnail: imgFormationPro,
     alt: "Formation Professionnelle",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/professionnelle",
   },
@@ -186,7 +211,7 @@ export const formations: FormationCard[] = [
     slug: "communication-et-marketing",
     title: "Formation Communication et Marketing",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/MINI-FORMATION-COMM-MARKETING.png",
+    thumbnail: imgCommMarketing,
     alt: "Formation Communication et Marketing",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/communication-et-marketing",
   },
@@ -195,7 +220,7 @@ export const formations: FormationCard[] = [
     slug: "developpement-organisation-personnelle",
     title: "Développement et organisation personnelle",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/Developpement-et-organisation-personnelle.png",
+    thumbnail: imgDeveloppement,
     alt: "Développement et organisation personnelle",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/developpement-et-organisation-personelle",
   },
@@ -204,13 +229,12 @@ export const formations: FormationCard[] = [
     slug: "creation-entreprise",
     title: "Création d'entreprise",
     category: "autre",
-    thumbnail: "https://www.ecolelafontaine.fr/wp-content/uploads/2026/03/Creation-dentreprise.png",
+    thumbnail: imgCreationEntreprise,
     alt: "Création d'entreprise",
     externalUrl: "https://www.ecolelafontaine.fr/formation-distance/creation-dentreprise",
   },
 ];
 
-// Helpers
 export const getFormationBySlug = (slug: string): FormationCard | undefined => formations.find((f) => f.slug === slug);
 
 export const getFormationsByCategory = (category: string): FormationCard[] => formations.filter((f) => f.category === category);

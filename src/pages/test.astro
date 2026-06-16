@@ -1,0 +1,7 @@
+---
+const images = import.meta.glob('../assets/formations/*', { eager: true });
+---
+
+{Object.entries(images).map(([path, img]: [string, any]) => (
+  <p>{path} → {img.default.src}</p>
+))}

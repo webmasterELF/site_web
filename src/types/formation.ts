@@ -1,4 +1,5 @@
 import type { SEOMeta } from "./seo";
+import type { ImageMetadata } from "astro";
 
 export type FormationCategory = "graphisme" | "espace" | "produit" | "bien-debuter" | "autre";
 
@@ -42,7 +43,7 @@ export type FormationCard = {
   slug: string;
   title: string;
   category: FormationCategory;
-  thumbnail: string;
+  thumbnail: ImageMetadata;
   alt: string;
   externalUrl?: string;
 };
