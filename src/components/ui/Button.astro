@@ -2,7 +2,7 @@
 interface Props {
   label: string
   href?: string
-  variant?: 'primary' | 'outline' 
+  variant?: 'primary' | 'secondary' | 'outline'
   size?: 'sm' | 'md' | 'lg' | 'full'
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
@@ -71,11 +71,11 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, className]
   }
 
   .btn--lg {
-    padding: var(--space-3) auto;
+    padding: var(--space-3) var(--space-6);
     font-size: var(--text-base);
   }
 
-  .btn--full{
+  .btn--full {
     width: 100%;
     padding: var(--space-2) var(--space-4);
     font-size: var(--text-base);
@@ -91,6 +91,17 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, className]
   .btn--primary:hover:not([disabled]):not([aria-disabled='true']) {
     background-color: color-mix(in srgb, var(--color-accent) 85%, black);
     border-color: color-mix(in srgb, var(--color-accent) 85%, black);
+  }
+
+  .btn--secondary {
+    background-color: var(--color-secondary);
+    color: var(--text-on-secondary);
+    border-color: var(--color-secondary);
+  }
+
+  .btn--secondary:hover:not([disabled]):not([aria-disabled='true']) {
+    background-color: color-mix(in srgb, var(--color-secondary) 85%, black);
+    border-color: color-mix(in srgb, var(--color-secondary) 85%, black);
   }
 
   .btn--outline {
