@@ -9,9 +9,18 @@ import Bento from '../components/ui/Bento.astro';
 import MethodCarousel from '../components/sections/MethodCarousel.astro';
 import AudienceCards from '../components/sections/AudienceCards.astro';
 import AdmissionStrip from '../components/sections/AdmissionStrop.astro'
+
+import xpPen from '../assets/partner/xp-pen-logo.webp';
+import adobe from '../assets/partner/adobe-logo.png';
+import geant from '../assets/partner/geant-des-beaux-arts.jpg.avif';
+import dalbe from '../assets/partner/dalbe.jpg.avif';
+import leburo from '../assets/partner/Le-bur02-logo.png.avif';
+
+const meta_description = "Suivez nos formations d'Arts et Design 100% en ligne. Apprenez le dessin, le design graphique, l'architecture d'intérieur et plus, à votre rythme."
+const meta_title = "Formation à distance en Arts et Design - École de Design La Fontaine"
 ---
 
-<Layout title="École de Design la Fontaine — Formations 100% en ligne" transparentHeader={true}>
+<Layout title={meta_title} description={meta_description} transparentHeader={true}>
 
   <section class="hero section">
     <div class="hero__inner container">
@@ -95,18 +104,18 @@ import AdmissionStrip from '../components/sections/AdmissionStrop.astro'
     </div>
    </section>
    <!-- Partner -->
-    <section class="partner section">
+  <section class="partner section">
     <div class="partner__inner container">
       <h2>Nos partenaires</h2>
       <div class="partner__img">
-        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2023/02/xp-pen-logo.webp" alt="Logo XPPen" width="100" height="100"/>
-        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2025/11/adobe-logo.png" alt="Logo Adobe" width="100" height="100"/>
-        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2022/06/geant-des-beaux-arts.jpg.avif" alt="Logo Géant des beaux Arts" width="100" height="100"/>
-        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2022/06/dalbe.jpg.avif" alt="Logo Dalbe" width="100" height="100"/>
-        <Image src="https://www.ecolelafontaine.fr/wp-content/uploads/2024/10/Le-bur02-logo.png.avif" alt="Logo Le buro2" width="100" height="100"/>
+        <Image src={xpPen} alt="Logo XP-Pen" width="120" height="114" />
+        <Image src={adobe} alt="Logo Adobe" width="202" height="109" />
+        <Image src={geant} alt="Logo Géant des Beaux-Arts" width="200" height="47" />
+        <Image src={dalbe} alt="Logo Dalbe" width="100" height="100" />
+        <Image src={leburo} alt="Logo Le Buro2" width="100" height="100" />
       </div>
     </div>
-   </section>
+  </section>
 </Layout>
 
 <style>
